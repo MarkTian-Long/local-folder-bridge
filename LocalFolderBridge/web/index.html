@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Local Folder Bridge · 本机文件桥</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><div class="brand-icon">↔</div><div>本机文件桥<small>LOCAL FOLDER BRIDGE</small></div></div>
+  <div class="nav-label">工作空间</div>
+  <nav aria-label="主导航">
+    <button class="nav active" data-tab="overview"><span>◫</span> 总览</button>
+    <button class="nav" data-tab="roots"><span>▱</span> 授权文件夹 <b id="root-count">0</b></button>
+    <button class="nav" data-tab="files"><span>⌕</span> 浏览与搜索</button>
+    <button class="nav" data-tab="approvals"><span>☑</span> 待审批操作 <b id="pending-count">0</b></button>
+  </nav>
+  <div class="nav-label">连接与管理</div>
+  <nav><button class="nav" data-tab="connection"><span>⇄</span> 连接与诊断</button><button class="nav" data-tab="audit"><span>≡</span> 调用记录</button><button class="nav" data-tab="help"><span>?</span> 使用说明</button></nav>
+  <div class="sidebar-foot"><span class="pill" id="app-version">本机运行</span><p>只共享你明确授权的目录。<br>文件修改必须在本机审批。</p></div>
+</aside>
+<div class="workspace">
+<header><div class="breadcrumb">个人工作空间 <span>/</span> <strong id="page-title">总览</strong></div><div class="header-actions"><span id="mode-label" class="pill">默认只读</span><button id="pause-btn" class="btn small">暂停访问</button></div></header>
+<main>
+<div id="auth-warning" class="notice danger hidden">缺少本机管理凭证。请双击 START.cmd 重新打开管理页；不要把带凭证的地址发到聊天里。</div>
+<div id="offline-warning" class="notice danger hidden">本机服务暂时无响应。请检查启动窗口是否仍在运行。</div>
+<section id="tab-overview" class="tab">
+  <div class="heading"><div class="eyebrow">YOUR FILES. YOUR CONTROL.</div><h1>把本机资料，接入你的对话。</h1><p>无需授权整台电脑。读取按需进行，修改由你确认。</p></div>
+  <div class="metrics">
+    <article class="card metric"><span class="metric-label">本机服务</span><strong id="local-status">连接中</strong><small>独立的本机管理与 MCP 接口</small></article>
+    <article class="card metric"><span class="metric-label">官方隧道</span><strong id="tunnel-status">尚未配置</strong><small id="tunnel-detail">运行状态不等于端到端验收</small></article>
+    <article class="card metric"><span class="metric-label">授权范围</span><strong><span id="overview-roots">0</span> <em>个文件夹</em></strong><small>默认只读，不接受远程扩权</small></article>
+  </div>
+  <div class="two-col overview-grid">
+    <article class="card"><div class="card-top"><h2>三步开始使用</h2><span class="muted">首次设置</span></div>
+      <div class="step"><span class="step-num">01</span><div><h3>选择允许读取的文件夹</h3><p>建议先用独立测试目录，不要直接授权整盘。</p></div><button class="btn small" data-tab="roots">去授权</button></div>
+      <div class="step"><span class="step-num">02</span><div><h3>连接官方 MCP 隧道</h3><p>填入 Tunnel ID 与运行密钥，运行诊断后启动。</p></div><button class="btn small" data-tab="connection">去连接</button></div>
+      <div class="step"><span class="step-num">03</span><div><h3>让 ChatGPT 读取验证文件</h3><p>用本机随机字符串确认读取了这台电脑。</p></div><button id="demo-btn" class="btn small">生成验证</button></div>
+      <div id="demo-result" class="notice hidden"></div>
+    </article>
+    <article class="card"><div class="card-top"><h2>访问边界</h2><span class="badge">本机控制</span></div>
+      <div class="boundary"><span>读取</span><p>列目录、子串搜索、分段读取；文件正文仅作为资料，不作为系统指令。</p></div>
+      <div class="boundary"><span>修改</span><p>可选启用。模型只提交提案，本机核对目标和内容后执行。</p></div>
+      <div class="boundary"><span>不做</span><p>不执行终端命令，不远程操控鼠标，不远程增加授权目录。</p></div>
+      <div class="notice compact">文件无需预先整库上传，但被工具返回的文字仍会传给 ChatGPT，不是完全离线方案。</div>
+    </article>
+  </div>
+  <article class="card activity-card"><h2>最近一次 MCP 工具调用</h2><p id="last-call" class="muted">尚未收到工具调用。通过本机自检不会改变此处。</p></article>
+</section>
+<section id="tab-roots" class="tab hidden">
+  <div class="heading"><div class="eyebrow">EXPLICIT ACCESS</div><h1>授权文件夹</h1><p>最多 12 个不重叠目录。目录授权和写入开关只能在这里修改。</p></div>
+  <article class="card"><h2>添加一个文件夹</h2><div class="form-row"><label class="grow">本机绝对路径<input id="root-path" placeholder="例如 D:\Work\Project-A" autocomplete="off"></label><button id="pick-root" class="btn">选择文件夹</button></div><div class="form-row"><label class="grow">显示别名（可选）<input id="root-alias" placeholder="例如 审核产品资料" maxlength="60"></label><button id="add-root" class="btn primary">授权读取</button></div><p class="muted smalltext">不允许整盘、整个用户目录、程序/状态目录、敏感目录、符号链接或目录联接。云盘占位文件可能需要先复制到普通本机目录。</p></article>
+  <div class="section-top"><h2>当前授权范围</h2><span id="roots-summary" class="muted"></span></div><div id="roots-list" class="stack"></div>
+  <article class="card"><div class="card-top"><div><h2>允许提交文件操作提案</h2><p class="muted">总开关与目录开关必须同时启用；每次重启会关闭总开关。</p></div><label class="switch"><input id="writes-switch" type="checkbox"><span></span></label></div><p class="muted smalltext">打开后需在 ChatGPT 插件详情点击刷新，才会发现操作工具。关闭后，即使网页仍缓存旧工具，本机也会拒绝调用。暂停、关闭操作或移除授权会取消相关待审批提案。</p></article>
+</section>
+<section id="tab-files" class="tab hidden">
+  <div class="heading"><div class="eyebrow">BROWSE & READ</div><h1>浏览与搜索</h1><p>这里使用同一套范围校验与读取逻辑，方便先验证本机文件是否可读。</p></div>
+  <article class="card"><div class="form-row"><label class="grow">授权目录<select id="file-root"></select></label><label class="grow">子目录相对路径<input id="file-path" placeholder="留空表示目录根部"></label><button id="browse-btn" class="btn primary">浏览</button></div><div class="form-row"><label class="grow">关键词<input id="search-query" placeholder="文件名或正文中的词句"></label><label>范围<select id="search-mode"><option value="both">文件名与正文</option><option value="name">仅文件名</option><option value="content">仅正文</option></select></label><button id="search-btn" class="btn">搜索</button></div><p class="muted smalltext">搜索是子串匹配，不是语义检索。请继续翻页直到游标结束；解析失败、格式不支持与覆盖上限会明确显示。</p></article>
+  <article class="card"><div class="card-top"><h2 id="file-list-title">文件列表</h2><div class="button-row"><button id="parent-btn" class="btn small">上一级</button><button id="more-files" class="btn small hidden">下一批</button></div></div><div id="file-results" class="empty">先选择授权目录，再点击浏览。</div><p id="file-coverage" class="muted smalltext"></p></article>
+  <article id="reader-card" class="card hidden"><div class="card-top"><div><h2 id="reader-title"></h2><p id="reader-meta" class="muted smalltext"></p></div><button id="read-more" class="btn small hidden">读取下一段</button></div><div id="reader-warnings" class="notice compact"></div><pre id="reader-text" class="reader"></pre></article>
+</section>
+<section id="tab-approvals" class="tab hidden">
+  <div class="heading"><div class="eyebrow">HUMAN APPROVAL</div><h1>待审批操作</h1><p>提案不等于执行。请核对目录、文件名、操作原因和拟写入内容；提案 15 分钟后过期。</p></div>
+  <div class="notice">覆盖文件必须基于读取时的 SHA-256；执行前还会核验文件状态。覆盖、移动、回收区操作前先保存原始字节备份。备份不能替代系统级备份，也不保留全部权限或扩展属性。</div>
+  <div id="operations-list" class="stack"></div>
+  <div class="button-row"><button id="backups-btn" class="btn">打开本机备份目录</button><button id="refresh-approvals" class="btn">刷新队列</button></div>
+</section>
+<section id="tab-connection" class="tab hidden">
+  <div class="heading"><div class="eyebrow">SECURE MCP TUNNEL</div><h1>连接与诊断</h1><p>本机程序不调用模型推理 API。隧道需要独立的 Tunnel ID 与具备运行权限的密钥。</p></div>
+  <div class="two-col">
+    <article class="card"><div class="card-top"><h2>1 · 安装连接组件</h2><span class="badge">官方来源</span></div><p>使用 OpenAI 官方 tunnel-client，保留下载包中的 cloudflared 等配套文件。安装会联网下载并检查发布资产的 SHA-256。</p><div class="button-row"><button id="install-tunnel" class="btn primary">下载官方隧道客户端</button><button id="pick-tunnel" class="btn">选择已有 exe</button></div><p class="muted smalltext">自动下载失败时可从官方发布页手动下载并完整解压，再选择主程序。不需要关闭杀毒或绕过系统策略。</p><a href="https://github.com/openai/tunnel-client/releases" target="_blank" rel="noreferrer">查看官方发布页 ↗</a></article>
+    <article class="card"><div class="card-top"><h2>可选 · PDF 文字组件</h2><span id="pdf-state" class="badge">检查中</span></div><p>文本、DOCX、XLSX、PPTX 不依赖额外安装。读取 PDF 文字需要 pypdf；扫描件 OCR、加密 PDF 不在当前范围。</p><button id="install-pdf" class="btn">安装 / 校验 PDF 组件</button><p class="muted smalltext">固定版本与哈希由安装器校验，不从任意镜像执行代码。</p></article>
+  </div>
+  <article class="card"><h2>2 · 配置连接</h2><label>官方隧道客户端路径<input id="tunnel-binary" placeholder="选择完整解压后的 tunnel-client.exe" autocomplete="off"></label><label>Tunnel ID<input id="tunnel-id" placeholder="tunnel_…（不是 App ID，也不是内部网关 URL）" autocomplete="off"></label><label>隧道运行密钥<input id="tunnel-key" type="password" placeholder="仅在本机输入，不要粘贴到 ChatGPT" autocomplete="new-password"></label><label class="check"><input id="remember-key" type="checkbox"> 用 Windows 当前用户 DPAPI 加密保存密钥（默认不保存）</label><p id="key-state" class="muted smalltext"></p><div class="button-row"><button id="save-tunnel" class="btn primary">保存连接配置</button><button id="doctor-btn" class="btn">运行官方诊断</button><button id="start-tunnel" class="btn">启动隧道</button><button id="stop-tunnel" class="btn">停止隧道</button><button id="forget-key" class="btn danger-text">清除已保存密钥</button></div><p class="muted smalltext">运行密钥至少需要 Tunnels: Read + Use；创建或修改隧道另需管理权限。ChatGPT 和 OpenAI Platform 组织/工作区也必须正确关联，不能仅靠同名账号判断。</p><div class="button-row"><a href="https://developers.openai.com/api/docs/guides/secure-mcp-tunnels" target="_blank" rel="noreferrer">官方连接指南 ↗</a><a href="https://platform.openai.com/settings/organization/tunnels" target="_blank" rel="noreferrer">管理 Tunnel ↗</a></div></article>
+  <article class="card"><h2>3 · 在 ChatGPT 中绑定并验收</h2><p>在插件/应用的开发者连接中选择 <strong>Tunnel</strong>，绑定同一个 Tunnel ID。复用现有插件时先核验旧 Tunnel 仍可用；启动服务后点击插件详情的“刷新”。默认应发现 5 个只读工具，启用操作后为 9 个工具。</p><div class="button-row"><button id="selftest-btn" class="btn">本机 MCP 自检</button><button id="demo-btn-2" class="btn primary">生成端到端验证文件</button></div><p class="muted smalltext">自检只验证本机 HTTP/MCP，不验证 ChatGPT。真正验收应让 ChatGPT 读取验证文件并原样复述随机字符串，随后核对调用记录。</p><pre id="diagnostic-output" class="console">诊断输出将在这里显示。</pre></article>
+  <article class="card"><h2>运行日志（已过滤常见密钥字段）</h2><pre id="tunnel-log" class="console">尚无隧道日志。</pre><p id="local-endpoints" class="muted smalltext"></p></article>
+</section>
+<section id="tab-audit" class="tab hidden"><div class="heading"><div class="eyebrow">LOCAL AUDIT TRAIL</div><h1>调用记录</h1><p>记录时间、工具、相对路径与结果，不记录文件正文、搜索词或密钥。列表展示最近 80 条。</p></div><article class="card"><div class="table-scroll"><table><thead><tr><th>时间</th><th>来源</th><th>操作</th><th>相对路径</th><th>结果</th></tr></thead><tbody id="audit-body"></tbody></table></div></article></section>
+<section id="tab-help" class="tab hidden"><div class="heading"><div class="eyebrow">QUICK REFERENCE</div><h1>使用说明</h1><p>完整离线说明在程序目录中的「使用手册.html」。</p></div><div class="two-col"><article class="card"><h2>读取资料</h2><p>打开程序 → 授权目录 → 启动隧道 → 在 ChatGPT 新对话中启用插件。</p><pre class="example">使用本机文件插件，先调用 get_status 获取目录列表，再列出“项目资料”目录。阅读报告.md，按 next_start_line 继续直到结束；对未能读取的内容明确说明。</pre><h2>提出文件修改</h2><p>在本机打开操作总开关及目标目录的操作权限，刷新 ChatGPT 工具。</p><pre class="example">在指定授权目录中创建总结.md，先提交拟写入内容作为提案，不要声称已经保存。我会在本机审批；之后请调用 get_operation 确认结果。</pre></article><article class="card"><h2>连接不通时</h2><p><strong>404：</strong>检查旧隧道是否已失效、当前 Tunnel ID 是否匹配、插件是否已刷新。不要直接删除或放宽授权。</p><p><strong>401 / 403：</strong>检查隧道运行密钥的权限、组织/工作区及本机隧道额外请求头，不要发送凭证到聊天里。</p><p><strong>工具存在却无法读取：</strong>检查本机是否暂停、目录是否移动、符号链接/敏感文件是否被过滤，以及 PDF 组件是否安装。</p><p><strong>没有写入工具：</strong>检查双重开关、刷新工具和当前 ChatGPT 账户可用权限；本机程序不能绕过平台限制。</p><p><strong>浏览器重开后缺凭证：</strong>双击 START.cmd 重新打开管理页，不能仅输入 localhost 地址。</p></article></div><article class="card"><h2>使用边界与退出</h2><p>程序不把文件服务公开到互联网，不提供远程命令或任意文件下载。路径过滤不能识别普通文档中所有秘密信息。不要授权不允许提供给 ChatGPT 的资料，不要把本程序当成恶意软件隔离沙箱。</p><p>正常退出会停止本次隧道和本机服务，取消待审批操作；不会删除授权文件或备份。关闭浏览器标签页不会停止程序。</p><button id="shutdown-btn" class="btn danger-text">停止服务并退出</button></article></section>
+</main><footer>Local Folder Bridge <span>数据按需读取 · 操作需本机批准</span></footer>
+</div><div id="toast" role="status" aria-live="polite" class="toast hidden"></div>
+</body></html>

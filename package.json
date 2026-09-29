@@ -1,0 +1,17 @@
+{
+  "name": "local-readonly-files-mcp",
+  "version": "0.2.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "description": "A read-only MCP server for an explicitly allowed local directory.",
+  "scripts": {
+    "test": "node --test",
+    "start": "node src/index.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "package:share": "node scripts/package-share.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

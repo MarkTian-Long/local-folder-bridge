@@ -1,0 +1,7 @@
+# Optional developer-only dependencies; the delivered application uses the standard library.
+pytest==9.0.2
+pytest-cov==7.0.0
+playwright==1.57.0
+jsonschema==4.26.0
+
+markdown-it-py==4.2.0

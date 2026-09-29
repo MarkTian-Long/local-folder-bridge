@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "local-readonly-files": {
+      "command": "node",
+      "args": [
+        "D:/MCP/local-readonly-files-mcp/src/index.mjs",
+        "--root",
+        "D:/MCP/local-readonly-files-mcp/examples/files"
+      ]
+    }
+  }
+}
