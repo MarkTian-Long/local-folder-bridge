@@ -36,12 +36,18 @@
 - 图形界面版开发：[LocalFolderBridge/DEVELOPMENT.md](LocalFolderBridge/DEVELOPMENT.md)。
 - 当前证据：[Windows 复核与发布准备](LocalFolderBridge/docs/本机复核与发布准备.md)。
 - 外部项目：[差异与优化路线](docs/COMPARISON.md)。
-- GitHub：[分阶段发布计划](GITHUB-PLAN.md)。
+- GitHub：[日常推送与同步](GITHUB-SYNC.md)、[分阶段发布流程](GITHUB-PLAN.md)。
+
+## 已完成的源码发布
+
+2026-09-29 已向公开仓库 `MarkTian-Long/local-folder-bridge` 推送首个源码提交 `fc915ad`；该提交的 [8 个跨平台 CI 组合全部通过](https://github.com/MarkTian-Long/local-folder-bridge/actions/runs/36588078856)。收尾维护增加独立文档检查任务；后续每次提交以其对应 Actions 结果为准。
+
+源码已同步不表示实际运行的 MCP/Tunnel 已升级。没有后台自动提交/推送，没有发布正式 Release，也没有安装开机任务；当前授权与密钥保持原状。
 
 ## 后续推荐顺序
 
 1. 在非敏感目录完成新版 ChatGPT 只读验收，不复用截图中的旧凭证。
-2. 在已确认的公开仓库 `MarkTian-Long/local-folder-bridge` 按审核清单提交，核对远端 CI；Node 许可证单独确认，不擅自统一修改。
+2. 按同步手册维护后续提交，核对同一 SHA 的远端 CI；正式 Release 前单独确认 Node 许可证，不擅自统一修改。
 3. 可选登录自启动：明确密钥保存授权，具备暂停/卸载、休眠恢复、失败提示，不将 key 写在任务参数中。
 4. 用脱敏中文文档语料对照后，再选择 MarkItDown/Docling 解析后端，不能默认联网做 OCR。
 5. 如需更多客户端兼容性，再替换 MCP 协议适配层，保留引擎权限测试，不将协议升级与权限扩大混在一起。

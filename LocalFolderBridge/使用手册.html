@@ -254,6 +254,7 @@ RUN_TESTS.cmd
 <p>隧道客户端可从官方最新发布页完整解压到普通目录，再在本机选择主程序，不要修改程序以接受未核验镜像。[S2]</p>
 <p>PDF wheel 的固定版本、URL 与哈希见 <code>bridge/downloads.py</code>。通过获准网络取得同一 wheel 并校验后，把其中 <code>pypdf</code> 和对应 <code>.dist-info</code> 目录完整解压到 <code>third_party</code>；重启程序。wheel 是 ZIP 容器，不需要运行里面的任意安装脚本。本手册不附带第三方二进制或字体文件。[S5]</p>
 <h2 id="section-12">12. 这次交付验证到了哪一层</h2>
+<p>源码已发布在 <a href="https://github.com/MarkTian-Long/local-folder-bridge">GitHub 仓库</a>，初始源码提交的 <a href="https://github.com/MarkTian-Long/local-folder-bridge/actions/runs/36588078856">8 个跨平台检查全部通过</a>。后续每次推送自动验证文档和程序，但不会自动上传你本地的修改、更新正在运行的服务或安装开机任务。开发与同步步骤见 <a href="https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-SYNC.md">维护手册</a>。正式 Release 和新版真实账号联调仍独立验收。</p>
 <p>1.1.1 在 Windows 上重跑了隔离回归、真实 HTTP/MCP/stdio、进程重启、合成凭证 DPAPI 和原生 Edge 页面检查。原生页面验证没有用 DOM 网络转接代替，但仍不能代表文件选择对话框、官方组件下载安装或你的真实云端账号测试。当前证据见 <code>docs/本机复核与发布准备.md</code>；原 <code>docs/测试与验收报告.md</code> 及手册配图仅作 1.1.0 历史记录。</p>
 <p><strong>本机最终验收记录（需部署后填写）</strong></p>
 <table>

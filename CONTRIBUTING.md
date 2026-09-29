@@ -1,5 +1,7 @@
 # 开发与验证
 
+本页主要说明 Node 只读实现。完整仓库的日常提交、拉取、推送、CI 与失败处理见 [推送与同步手册](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-SYNC.md)；图形版见 [Python 开发说明](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/LocalFolderBridge/DEVELOPMENT.md)。这两个仓库导航不属于 Node 精简 ZIP 的离线文件。
+
 ## 项目结构
 
 ```text

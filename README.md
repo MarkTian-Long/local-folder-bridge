@@ -7,7 +7,9 @@
 | Python 图形界面版 1.1.1 | 希望使用中文界面、多目录授权和本机逐项审批的 Windows 用户 | [安装与手册](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/LocalFolderBridge/README.md) |
 | Node 只读版 0.2.0 | 希望零第三方依赖、固定一个目录、使用 stdio 的开发者 | 本页下方的快速体验 |
 
-[项目总览](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/PROJECT.md) · [GitHub 验证状态](https://github.com/MarkTian-Long/local-folder-bridge/actions) · [发布流程](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-PLAN.md)
+[项目总览](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/PROJECT.md) · [GitHub 验证状态](https://github.com/MarkTian-Long/local-folder-bridge/actions) · [日常推送与同步](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-SYNC.md) · [发布流程](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-PLAN.md)
+
+源码已公开。推送后自动运行文档一致性及 Windows/Linux 回归检查；本地修改仍需明确提交和推送，不会后台上传文件或自动更新正在运行的服务。正式 Release 下载包和开机自启动尚未启用。
 
 许可分别保留：Python 子目录含 MIT LICENSE；Node 的 package.json 仍为 `private: true` / `UNLICENSED`，不会自动发布 npm。本仓库没有将两套代码统一改成 MIT。
 

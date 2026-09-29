@@ -28,6 +28,8 @@ Windows 联网启动包。让 ChatGPT 通过官方 MCP 隧道读取你授权的�
 
 ## 当前交付状态
 
+源码已在 [GitHub](https://github.com/MarkTian-Long/local-folder-bridge) 公开，初始提交的 Windows/Linux 多版本 CI 已通过；后续状态看 [Actions](https://github.com/MarkTian-Long/local-folder-bridge/actions)。开发者提交与拉取流程见 [同步手册](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-SYNC.md)。这不是正式 Release，也不会自动升级本机运行的服务。
+
 1.1.1 已在 Windows 上复核 Python 回归、真实 HTTP/MCP/进程重启、原生 Edge 页面交互和合成凭证的 DPAPI。双击引导下载、原生目录选择对话框和真实 ChatGPT/Tunnel 仍需现场验收，不能用本机测试代替。详见本次复核文档。
 
 `docs/测试与验收报告.md` 是原始 1.1.0 Linux 交付记录，旧覆盖率/浏览器结果不作为当前版本证据。本次测试默认写入 `reports/current/`；新发布 ZIP 不包含任何原始测试报告、运行配置或凭证。

@@ -1,5 +1,7 @@
 # 开发与验证
 
+完整 Git 仓库的提交审核、同步、CI 与回滚流程见 [日常推送与同步](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-SYNC.md)。Git 操作在仓库根目录完成，下文 Python 开发命令在本子目录执行；不要混淆两种工作目录。
+
 先读 [安全边界](docs/技术说明与安全边界.md)。默认只读、目录本机授权、逐项审批、不提供 shell 是开发约束，不靠提示词维持。日常程序用 Python 标准库；PDF 提取器和测试工具为可选依赖。
 
 ## 开发环境
@@ -45,6 +47,8 @@ $env:CHROMIUM_EXECUTABLE='C:\Program Files (x86)\Microsoft\Edge\Application\msed
 浏览器使用独立临时配置、合成资料和随机 loopback 端口，不使用登录中的浏览器。`--native-only` 不允许以 DOM 适配模式冒充原生导航通过；管理员策略阻断应记为限制。原生文件夹对话框和真实 Tunnel 不属于此套测试。
 
 先编辑 `docs/操作手册.md`，再生成 `使用手册.html`，不要直接编辑生成 HTML。手册旧截图仍明确标记为历史 Linux 样本，新浏览器截图在 `reports/current/screenshots/`。
+
+仓库 CI 的 `docs` 任务会重新生成 HTML 并比较差异，同时检查内部文件链接和关键版本标签。新增文档先审核并明确暂存，再从仓库根目录运行 `.github/check_docs.py`；它读取已跟踪文件的工作区版本，不检查外部网址和页内锚点。
 
 ## 发布验证
 

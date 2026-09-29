@@ -33,8 +33,8 @@ node scripts/package-share.mjs
 - [ ] 接收者知道必须配置自己的授权目录和账号，而不是继续使用作者的 Tunnel。
 - [ ] 明确试用范围与软件授权方式。
 
-## 公开 GitHub / npm 前
+## GitHub 已公开，软件授权与 npm 发布仍分开
 
-当前没有替作者选择公开开源许可证，`package.json` 保持 `private: true`、`license: UNLICENSED`。这不是 MIT/Apache 开源授权，也不是已发布到 GitHub/npm。作者可明确授权特定接收者试用；如果需要公开开源，应先决定许可条款并加入 LICENSE，再完成发布。
+源码已发布到 [公开 GitHub 仓库](https://github.com/MarkTian-Long/local-folder-bridge)，但没有替作者选择 Node 的开源许可证；`package.json` 保持 `private: true`、`license: UNLICENSED`，也没有发布 npm 或正式 Release。GitHub 可见性与软件许可不同，这不是 MIT/Apache 开源授权。作者可明确授权特定接收者试用；扩大开源授权前仍需决定许可条款并加入 LICENSE。Python 子目录保留其独立 MIT LICENSE，不自动覆盖 Node。
 
-首次建仓库前重新检查目录和待提交文件，不要仅依赖 `.gitignore`：它不会让已经被提交过的密钥从历史中消失。本轮不会自动建立公开仓库、推送或上传安装包。
+日常更新遵循 [推送与同步手册](https://github.com/MarkTian-Long/local-folder-bridge/blob/main/GITHUB-SYNC.md)。提交前检查明确的文件清单和 diff，不要仅依赖 `.gitignore`：它不会让已经被提交过的密钥从历史中消失。推送会触发自动检查，但本地修改不会自动上传，用户安装的服务也不会自动升级。
