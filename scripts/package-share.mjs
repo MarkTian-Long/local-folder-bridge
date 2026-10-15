@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 // Deliberate allowlist: adding a file anywhere else never makes it shareable.
 export const SHARE_FILES = [
-  ".gitignore", "package.json", "README.md", "CHANGELOG.md", "CONTRIBUTING.md",
+  ".gitignore", "package.json", "README.md", "README.en.md", "CHANGELOG.md", "CONTRIBUTING.md",
   "src/index.mjs", "test/mcp-server.test.mjs", "test/sharing.test.mjs", "test/distribution.test.mjs",
   "scripts/package-share.mjs", "scripts/smoke.mjs", "scripts/tunnel.mjs", "scripts/tunnel.ps1",
   "examples/stdio-client.json", "examples/files/hello-local.md", "examples/files/notes/meeting.txt",

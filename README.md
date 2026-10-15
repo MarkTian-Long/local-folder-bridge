@@ -1,5 +1,7 @@
 # LocalFolderBridge｜本机文件桥
 
+[中文](README.md) | [English](README.en.md)
+
 通过 MCP 连接 AI 与明确授权的本地资料。本仓库保留两套独立实现，默认只读；不提供远程 shell。
 
 | 实现 | 适合谁 | 入口 |
@@ -26,7 +28,7 @@
 ## 五分钟本机体验
 
 1. 从 [Node.js 官网](https://nodejs.org/)安装当前受支持的 LTS 版本；代码要求 Node.js ≥ 20。
-2. 解压分享包，在包含 `package.json` 的文件夹打开终端。
+2. 克隆仓库或解压 Node 精简分享包，在包含 `package.json` 的文件夹打开终端。
 3. 执行下面两条命令，不需要 `npm install`、API key 或登录：
 
 ```powershell
